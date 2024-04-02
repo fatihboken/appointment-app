@@ -1,9 +1,11 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
 import { doctorData } from "../helper/Data";
+import AddModal from "./AddModal";
+import { useState } from "react";
 
 const Doctors = () => {
-  console.log(doctorData);
-  console.log(Doctors);
+  const [showModal, setShow] = useState(false);
+  const [drName, setDrName] = useState("");
   return (
     <Container>
       <h3 className="display-6 mb-3">Doctors</h3>
@@ -14,12 +16,17 @@ const Doctors = () => {
               className="img-thumbnail doctor-img w-100"
               src={img}
               alt={name}
+              onClick={() => {
+                setShow(true);
+                setDrName(name); 
+              }}
             />
             <h5>{name}</h5>
             <p>{dep}</p>
           </Col>
         ))}
       </Row>
+      <AddModal showModal={showModal} handleClose={() => setShow(false)} drName={drName} />
     </Container>
   );
 };
